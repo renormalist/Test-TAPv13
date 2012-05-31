@@ -1,0 +1,7 @@
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
+        - initial module to use TAPv13 features in Test::Builder driven
+          tests
+        - "tap13_pragma" prints out a pragma line
+        - "tap13_yaml" prints out an indented YAML block of data
