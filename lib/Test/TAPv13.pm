@@ -42,7 +42,7 @@ sub tap13_yaml {
     my $output;
     $writer->write($data, \$output);
 
-    my $indent = " " x 4 x ($Test->level-1). "  ";
+    my $indent = $Test->{Indent}. "  ";
     $output =~ s/^/$indent/msg;
     print $OUT $output;
 }
