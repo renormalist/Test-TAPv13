@@ -32,7 +32,7 @@ use Sub::Exporter
 
 sub tap13_pragma {
     my ($msg) = @_;
-    print $OUT $Test->{Indent}."pragma $msg\n";
+    print $OUT $Test->_indent."pragma $msg\n";
 }
 
 sub tap13_yaml {
@@ -42,7 +42,7 @@ sub tap13_yaml {
     my $output;
     $writer->write($data, \$output);
 
-    my $indent = $Test->{Indent}. "  ";
+    my $indent = $Test->_indent. "  ";
     $output =~ s/^/$indent/msg;
     print $OUT $output;
 }
