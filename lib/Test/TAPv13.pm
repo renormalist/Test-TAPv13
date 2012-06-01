@@ -137,4 +137,4 @@ prints out a TAP pragma line:
 
 You most probably do not want or need this, but anyway, the C<+strict>
 pragma is part of the TAP v13 specification and makes the TAP parser
-complain about non-TAP (I<unknown>) lines.
+fail on non-TAP (I<unknown>) lines.
