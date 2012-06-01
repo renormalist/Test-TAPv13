@@ -12,14 +12,23 @@ my $data = { affe => { tiger => 111,
            };
 
 ok(1, "hot stuff");
-tap13_yaml($data);
 tap13_pragma "-strict"; # +strict does not work in TAP::Harness with the nested TAP yet
+tap13_yaml($data);
 ok(1, "more hot stuff");
 
-subtest 'An example subtest' => sub {
-                                     plan tests => 2;
-                                     pass("This is a subtest");
-                                     tap13_yaml($data);
-                                     tap13_pragma "-strict";
-                                     pass("So is this");
-                                    };
+subtest 'Level 2 subtest'
+ => sub {
+         plan tests => 3;
+         tap13_pragma "+strict"; # nested pragmas are ignored
+         pass("Sub test");
+         tap13_yaml($data);
+         pass("Sub stuff");
+         subtest 'Level 3 subtest'
+         => sub {
+                 plan tests => 2;
+                 tap13_pragma "+strict"; # nested pragmas are ignored
+                 pass("DEEP SUBTEST");
+                 tap13_yaml($data);
+                 pass("DEEP STUFF");
+                };
+        };
