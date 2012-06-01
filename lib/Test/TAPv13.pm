@@ -72,16 +72,16 @@ include data, etc.
   use Test::TAPv13 ':all'; # before other Test::* modules
   use Test::More tests => 2;
   
-  my $data = { affe => { one   => 111,
+  my $data = { affe => { tiger => 111,
                          birne => "amazing",
-                         kram  => [ qw( one two three) ],
+                         loewe => [ qw( one two three) ],
                },
                zomtec => "here's another one",
   };
   
   ok(1, "hot stuff");
-  tap13_pragma "0xAFFE";
   tap13_yaml($data);
+  tap13_pragma "+strict";
   ok(1, "more hot stuff");
 
 This would create TAP like this:
@@ -92,6 +92,27 @@ This would create TAP like this:
     ---
     affe:
       birne: amazing
+      loewe:
+        - one
+        - two
+        - three
+      tiger: 111
+    zomtec: 'here''s another one'
+    ...
+  pragma +strict
+  ok 2 - more hot stuff
+
+=head2 tap13_yaml($data)
+
+For example
+
+  tap13_yaml($data);
+
+prints out an indented YAML block of the data, like this:
+
+    ---
+    affe:
+      birne: amazing
       kram:
         - one
         - two
@@ -99,4 +120,19 @@ This would create TAP like this:
       one: 111
     zomtec: "here's another one"
     ...
-  ok 2 - more hot stuff
+
+To make it meaningful, e.g. in a L<TAP::DOM|TAP::DOM>, you should do
+that B<directly after> an actual test line to which this data block
+will belong as a child.
+
+=head2 tap13_pragma($string)
+
+For example
+
+  tap13_pragma("+strict");
+
+prints out a TAP pragma line:
+
+  pragma +strict
+
+Not that useful yet but part of the TAP v13 specification.

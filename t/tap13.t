@@ -3,14 +3,15 @@
 use Test::TAPv13 ':all'; # must come before Test::More
 use Test::More tests => 2;
 
-my $data = { affe => { one   => 111,
+my $data = { affe => { tiger => 111,
                        birne => "amazing",
-                       kram  => [ qw( one two three) ],
-             },
+                       loewe => [ qw( 1 two three) ],
+                     },
              zomtec => "here's another one",
-};
+             "DrWho" => undef,
+           };
 
 ok(1, "hot stuff");
-tap13_pragma "0xAFFE";
 tap13_yaml($data);
+tap13_pragma "+strict";
 ok(1, "more hot stuff");
