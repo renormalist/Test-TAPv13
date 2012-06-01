@@ -4,7 +4,7 @@ package Test::TAPv13;
 # ABSTRACT: provide TAP v13 support to test scripts
 
 use Test::Builder;
-use TAP::Parser::YAMLish::Writer;
+use Data::YAML::Writer;
 
 my $Test;
 my $OUT;
@@ -34,7 +34,7 @@ sub tap13_pragma {
 sub tap13_yaml {
     my ($data) = @_;
 
-    my $writer = TAP::Parser::YAMLish::Writer->new;
+    my $writer = Data::YAML::Writer->new;
     my $output;
     $writer->write($data, \$output);
 
