@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 
-use Test::TAPv13; # must come before Test::More
+use Test::TAPv13 ':all'; # must come before Test::More
 use Test::More tests => 2;
 
 my $data = { affe => { one   => 111,

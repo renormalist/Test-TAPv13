@@ -15,16 +15,20 @@ BEGIN {
     print $OUT "TAP version 13\n";
 }
 
-sub import {
-    my $self = shift;
-    my $caller = caller;
-    no strict 'refs';
-    *{$caller.'::tap13_pragma'} = \&tap13_pragma;
-    *{$caller.'::tap13_yaml'}   = \&tap13_yaml;
-
-    $Test->exported_to($caller);
-    $Test->plan(@_);
-}
+use Sub::Exporter
+ -setup => {
+            exports => [
+                        qw( tap13_pragma
+                            tap13_yaml
+                         ),
+                       ],
+            groups => {
+                       all => [ qw( tap13_pragma
+                                    tap13_yaml
+                                 )
+                              ],
+                      },
+           };
 
 sub tap13_pragma {
     my ($msg) = @_;
@@ -65,7 +69,7 @@ include data, etc.
 
 =head1 SYNOPSIS
 
-  use Test::TAPv13; # must come before Test::More
+  use Test::TAPv13 ':all'; # before other Test::* modules
   use Test::More tests => 2;
   
   my $data = { affe => { one   => 111,
