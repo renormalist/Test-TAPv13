@@ -10,42 +10,52 @@ my $Test;
 my $OUT;
 
 BEGIN {
-    $Test = Test::Builder->new;
-    $OUT  = $Test->output;
-    print $OUT "TAP version 13\n";
+        $Test = Test::Builder->new;
+        $OUT  = $Test->output;
 }
 
-use Sub::Exporter
+sub tap13_version {
+        print $OUT "TAP version 13\n";
+}
+
+sub tap13_pragma {
+        my ($msg) = @_;
+        print $OUT $Test->_indent."pragma $msg\n";
+}
+
+sub tap13_yaml {
+        my ($data) = @_;
+
+        my $writer = Data::YAML::Writer->new;
+        my $output;
+        $writer->write($data, \$output);
+
+        my $indent = $Test->_indent. "  ";
+        $output =~ s/^/$indent/msg;
+        print $OUT $output;
+}
+
+sub installer {
+        &tap13_version;
+        &Sub::Exporter::default_installer
+}
+
+use Sub::Exporter { installer => \&Test::TAPv13::installer },
  -setup => {
             exports => [
-                        qw( tap13_pragma
+                        qw( tap13_version
+                            tap13_pragma
                             tap13_yaml
                          ),
                        ],
             groups => {
-                       all => [ qw( tap13_pragma
+                       all => [ qw( tap13_version
+                                    tap13_pragma
                                     tap13_yaml
                                  )
                               ],
                       },
            };
-
-sub tap13_pragma {
-    my ($msg) = @_;
-    print $OUT $Test->_indent."pragma $msg\n";
-}
-
-sub tap13_yaml {
-    my ($data) = @_;
-
-    my $writer = Data::YAML::Writer->new;
-    my $output;
-    $writer->write($data, \$output);
-
-    my $indent = $Test->_indent. "  ";
-    $output =~ s/^/$indent/msg;
-    print $OUT $output;
-}
 
 1;
 
