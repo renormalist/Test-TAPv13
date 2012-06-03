@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001     2012-06-03
         - initial module to use TAPv13 features in Test::Builder driven
           tests
         - "tap13_version" prints TAP version statement;
