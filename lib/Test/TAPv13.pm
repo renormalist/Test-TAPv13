@@ -35,12 +35,12 @@ sub tap13_yaml {
         print $OUT $output;
 }
 
-sub installer {
+sub _installer {
         &tap13_version;
         &Sub::Exporter::default_installer
 }
 
-use Sub::Exporter { installer => \&Test::TAPv13::installer },
+use Sub::Exporter { installer => \&Test::TAPv13::_installer },
  -setup => {
             exports => [
                         qw( tap13_version
@@ -148,3 +148,12 @@ prints out a TAP pragma line:
 You most probably do not want or need this, but anyway, the C<+strict>
 pragma is part of the TAP v13 specification and makes the TAP parser
 fail on non-TAP (I<unknown>) lines.
+
+=head2 tap13_version
+
+Not to be called directly in your scripts as it is called implicitely
+as soon you C<use Test::TAP13>.
+
+Prints out the version statement
+
+  TAP version 13
