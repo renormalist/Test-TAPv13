@@ -6,21 +6,18 @@ package Test::TAPv13;
 use Test::Builder;
 use Data::YAML::Writer;
 
-my $Test;
-my $OUT;
-
-BEGIN {
-        $Test = Test::Builder->new;
-        $OUT  = $Test->output;
-}
-
 sub tap13_version {
-        print $OUT "TAP version 13\n";
+        my $out = Test::Builder->new->output;
+        print $out "TAP version 13\n";
 }
 
 sub tap13_pragma {
         my ($msg) = @_;
-        print $OUT $Test->_indent."pragma $msg\n";
+
+        my $tb = Test::Builder->new;
+        my $out = $tb->output;
+
+        print $out $tb->_indent."pragma $msg\n";
 }
 
 sub tap13_yaml {
@@ -30,9 +27,12 @@ sub tap13_yaml {
         my $output;
         $writer->write($data, \$output);
 
-        my $indent = $Test->_indent. "  ";
+        my $tb = Test::Builder->new;
+        my $out = $tb->output;
+
+        my $indent = $tb->_indent. "  ";
         $output =~ s/^/$indent/msg;
-        print $OUT $output;
+        print $out $output;
 }
 
 sub _installer {
