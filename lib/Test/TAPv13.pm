@@ -4,6 +4,11 @@ use warnings;
 package Test::TAPv13;
 # ABSTRACT: provide TAP v13 support to test scripts
 
+BEGIN {
+    require Test::Builder;
+    die "Test::TAPv13 only works for old Test::More versions < 1.302013, you have $Test::Builder::VERSION.\n" if $Test::Builder::VERSION >= 1.302013;
+}
+
 use Test::Builder;
 use Data::YAML::Writer;
 
