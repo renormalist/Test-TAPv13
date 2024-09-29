@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2024-09-29
         - DEPRECATED and DYSFUNCTIONAL for Test::More versions >= 1.302013_002 (Dec 2015)
           The module relied on internals of Test::Builder which are no
           longer available after Test::More was migrated to use Test2::Builder.
